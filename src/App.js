@@ -60,15 +60,6 @@ function App() {
 					</div>
 				</div>
 			</main>
-			<footer>
-				<a
-					href='https://github.com/kokosikbuller/ISS'
-					rel='noreferrer'
-					target='_blank'
-				>
-					GitHub
-				</a>
-			</footer>
 		</div>
 	);
 }
