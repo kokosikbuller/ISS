@@ -1,25 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from 'axios';
+import moment from 'moment/moment';
+import { useEffect, useState } from 'react';
+import './App.scss';
+import ListItem from './components/ListItem';
+import Located from './components/Located';
+import Map from './components/Map';
+import Time from './components/Time';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [location, setLocation] = useState(null);
+	const [astros, setAstros] = useState([]);
+	const [date, setDate] = useState();
+
+	const fetchLocation = async () => {
+		const { data } = await axios.get('http://api.open-notify.org/iss-now.json');
+		setLocation(data.iss_position);
+	};
+
+	const fetchPersonal = async () => {
+		const { data } = await axios.get('http://api.open-notify.org/astros.json');
+		const iss = data.people.filter((item) => item.craft === 'ISS');
+		setAstros(iss);
+	};
+
+	useEffect(() => {
+		fetchLocation();
+		let id = setInterval(() => {
+			fetchLocation();
+		}, 5000);
+		fetchPersonal();
+
+		setDate(moment());
+		let id2 = setInterval(() => {
+			setDate(moment());
+		}, 10000);
+
+		return () => {
+			clearInterval(id);
+			clearInterval(id2);
+		};
+	}, []);
+
+	return (
+		<div className='station'>
+			<div className='header'>
+				<Located location={location} />
+				<Time date={date} />
+			</div>
+			<div className='content'>
+				<div className='content__map'>
+					<Map coordinate={location} />
+				</div>
+				<div className='content__list'>
+					{astros?.map((item) => (
+						<ListItem key={item.name} item={item} />
+					))}
+					<div className='content__list-count'>
+						Total amount: {astros?.length} people on ISS
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default App;
