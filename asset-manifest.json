@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ISS/static/css/main.b119e2e7.css",
+    "main.js": "/ISS/static/js/main.c96a5b1f.js",
+    "index.html": "/ISS/index.html",
+    "main.b119e2e7.css.map": "/ISS/static/css/main.b119e2e7.css.map",
+    "main.c96a5b1f.js.map": "/ISS/static/js/main.c96a5b1f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b119e2e7.css",
+    "static/js/main.c96a5b1f.js"
+  ]
+}
