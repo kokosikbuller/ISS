@@ -43,11 +43,11 @@ function App() {
 
 	return (
 		<div className='station'>
-			<div className='header'>
+			<header className='header'>
 				<Located location={location} />
 				<Time date={date} />
-			</div>
-			<div className='content'>
+			</header>
+			<main className='content'>
 				<div className='content__map'>
 					<Map coordinate={location} />
 				</div>
@@ -59,7 +59,16 @@ function App() {
 						Total amount: {astros?.length} people on ISS
 					</div>
 				</div>
-			</div>
+			</main>
+			<footer>
+				<a
+					href='https://github.com/kokosikbuller/ISS'
+					rel='noreferrer'
+					target='_blank'
+				>
+					GitHub
+				</a>
+			</footer>
 		</div>
 	);
 }
